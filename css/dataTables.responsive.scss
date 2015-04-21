@@ -5,23 +5,19 @@
 @mixin control() {
 	display: block;
 	position: absolute;
-	color: white;
-	border: 2px solid white;
-	border-radius: 16px;
+  top: 15px;
+	color: #444;
 	text-align: center;
 	line-height: 14px;
-	box-shadow: 0 0 3px #444;
 	box-sizing: content-box;
 }
 
 @mixin control-open() {
-	content: '+';
-	background-color: #31b131;
+	content: '\25c0';
 }
 
 @mixin control-close() {
-	content: '-';
-	background-color: #d33333;
+	content: '\25bc';
 }
 
 
@@ -31,42 +27,43 @@
 table.dataTable {
 	// Styling for the `inline` type
 	&.dtr-inline.collapsed > tbody {
-		> tr > td:first-child,
-		> tr > th:first-child {
+		> tr > td:last-child,
+		> tr > th:last-child {
 			position: relative;
-			padding-left: 30px;
+			padding-right: 30px;
 			cursor: pointer;
 
-			&:before {
+			&:after {
 				top: 8px;
-				left: 4px;
+				right: 4px;
 				height: 16px;
 				width: 16px;
+        padding-left: 10px;
 				@include control;
 				@include control-open;
 			}
 
-			&.dataTables_empty:before {
+			&.dataTables_empty:after {
 				display: none;
 			}
 		}
 
 		> tr.parent {
-			> td:first-child:before,
-			> th:first-child:before {
+			> td:last-child:after,
+			> th:last-child:after {
 				@include control-close;
 			}
 		}
 
-		> tr.child td:before {
+		> tr.child td:after {
 			display: none;
 		}
 	}
 
 	// DataTables' `compact` styling
 	&.dtr-inline.collapsed.compact > tbody {
-		> tr > td:first-child,
-		> tr > th:first-child {
+		> tr > td:last-child,
+		> tr > th:last-child {
 			padding-left: 27px;
 
 			&:before {
@@ -88,7 +85,7 @@ table.dataTable {
 			position: relative;
 			cursor: pointer;
 
-			&:before {
+			&:after {
 				top: 50%;
 				left: 50%;
 				height: 16px;
@@ -101,8 +98,8 @@ table.dataTable {
 		}
 
 		> tr.parent {
-			td.control:before,
-			th.control:before {
+			td.control:after,
+			th.control:after {
 				@include control-close;
 			}
 		}
